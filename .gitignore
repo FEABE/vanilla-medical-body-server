@@ -1,0 +1,46 @@
+# macOS
+._*
+.DS_Store
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Logs
+logs/
+*.log
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+.data/
+.ssl/
+
+# Coverage
+coverage/
+.nyc_output/
+
+# Package output/cache
+*.tgz
+.npm/
+
+# Environment
+.env
+secrets.env
+*.secret.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
+Desktop.ini

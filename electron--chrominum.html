@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>vanilla-medical-body-server</title>
+    <style>
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #0d1117; }
+        iframe { position: fixed; top: 0; left: 0; bottom: 0; right: 0; width: 100%; height: 100%; border: none; margin: 0; padding: 0; z-index: 999999; }
+    </style>
+</head>
+<body>
+    <script src="../vanilla-common/electron--chrominum.js"></script>
+    <iframe id="app-frame" src="about:blank"></iframe>
+    <script>
+        (function () {
+            var fallbackUrl = "http://127.0.0.1:3024/";
+            var electronUrl = "";
+            try {
+                electronUrl = process && process.env && process.env.VANILLA_ELECTRON_URL;
+            } catch (_) {}
+
+            setTimeout(function () {
+                document.getElementById('app-frame').src = electronUrl || fallbackUrl;
+            }, 500);
+        }());
+    </script>
+</body>
+</html>
