@@ -1,16 +1,25 @@
 #!/bin/bash
 set -e
-cd "$(dirname "$0")"
 
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+VANILLA_ROOT_DIR="${VANILLA_ROOT_DIR:-$(cd "$SCRIPT_DIR/.." && pwd)}"
+VANILLA_DATA_DIR="${VANILLA_DATA_DIR:-$VANILLA_ROOT_DIR/.data}"
+VANILLA_ELECTRON_SERVICE_NAME="${VANILLA_ELECTRON_SERVICE_NAME:-$(basename "$SCRIPT_DIR")}"
+
+export VANILLA_ROOT_DIR
+export VANILLA_DATA_DIR
+export VANILLA_ELECTRON_SERVICE_NAME
 export ELECTRON_DISABLE_SECURITY_WARNINGS=true
 
-if [ -d "../vanilla-binary_darwin_electron/Electron.app" ]; then
-    exec "../vanilla-binary_darwin_electron/Electron.app/Contents/MacOS/Electron" "../vanilla-common/electron.js"
-elif [ -x "../vanilla-src-nodemodules/node_modules/.bin/electron" ]; then
-    exec "../vanilla-src-nodemodules/node_modules/.bin/electron" "../vanilla-common/electron.js"
+cd "$SCRIPT_DIR"
+
+if [ -x "$VANILLA_ROOT_DIR/vanilla-binary_darwin_electron/Electron.app/Contents/MacOS/Electron" ]; then
+    exec "$VANILLA_ROOT_DIR/vanilla-binary_darwin_electron/Electron.app/Contents/MacOS/Electron" "$VANILLA_ROOT_DIR/vanilla-common/electron.js"
+elif [ -x "$VANILLA_ROOT_DIR/vanilla-src-nodemodules/node_modules/.bin/electron" ]; then
+    exec "$VANILLA_ROOT_DIR/vanilla-src-nodemodules/node_modules/.bin/electron" "$VANILLA_ROOT_DIR/vanilla-common/electron.js"
 else
-    echo "Electron을 찾을 수 없습니다."
-    echo "vanilla-binary_darwin_electron/Electron.app 또는 vanilla-src-nodemodules/node_modules를 확인해주세요."
-    echo "Node.js로 실행하려면: node nodejs.js"
+    echo "Electron runtime not found."
+    echo "Check vanilla-binary_darwin_electron/Electron.app or vanilla-src-nodemodules/node_modules."
+    echo "Fallback: node nodejs.js"
     exit 1
 fi

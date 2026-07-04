@@ -5,7 +5,7 @@
     const path = require('path');
 
     require('../vanilla-common-node/define.js');
-    global.load('vanilla-common-router/index.js');
+    global.load('vanilla-common-router/index.js'); // vanilla-binary: static-loader
 
     const KEY_PROCESS = 'vanilla-medical-body-server';
     const PORT = global.PORT_SERVER[KEY_PROCESS] || 3024;
